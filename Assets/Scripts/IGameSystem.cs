@@ -2,6 +2,7 @@
 {
     public interface IGameSystem
     {
-        void Init();
+        void Init(GameManager.Properties properties);
+        void Start();
     }
 }

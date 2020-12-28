@@ -10,6 +10,7 @@ namespace DefaultNamespace
         private static readonly int ThrowKey = Animator.StringToHash("Throw");
 
         [SerializeField] private Animator animator;
+        [SerializeField] private float MoveSpeed = 3.5f;
         private NavMeshAgent agent;
 
         public Vector3 Move { get; set; }
@@ -22,8 +23,9 @@ namespace DefaultNamespace
 
         private void Update()
         {
-            animator.SetFloat(MoveKey, Move.magnitude);
-            agent.Move(Move);
+            var movement = Move * MoveSpeed;
+            animator.SetFloat(MoveKey, movement.magnitude);
+            agent.Move(movement * Time.deltaTime);
             if (Direction.magnitude > 0)
             {
                 transform.rotation = Quaternion.LookRotation(Direction, Vector3.up);
