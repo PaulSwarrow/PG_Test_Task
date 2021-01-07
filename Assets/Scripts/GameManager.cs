@@ -21,9 +21,11 @@ public class GameManager : MonoBehaviour
 
     public static event Action UpdateEvent;
     public static event Action GizmosEvent;
+    public static Properties GameProperties { get; private set; }
     public static PlayerController PlayerController { get; private set; }
     public static GameCharacterSystem GameCharacter { get; private set; }
-    public static Properties GameProperties { get; private set; }
+    
+    public static ObjectSpawner ObjectSpawner { get; private set; }
 
     // Start is called before the first frame update
     void Awake()
@@ -31,6 +33,7 @@ public class GameManager : MonoBehaviour
         GameProperties = properties;
         PlayerController = InitSystem<PlayerController>();
         GameCharacter = InitSystem<GameCharacterSystem>();
+        ObjectSpawner = InitSystem<ObjectSpawner>();
 
 
         systems.ForEach(system => system.Init());

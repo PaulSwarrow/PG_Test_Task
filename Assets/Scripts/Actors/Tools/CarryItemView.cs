@@ -1,4 +1,5 @@
 ﻿using System;
+using DefaultNamespace.Configs;
 using UnityEngine;
 
 namespace DefaultNamespace.Tools
@@ -8,6 +9,8 @@ namespace DefaultNamespace.Tools
         [SerializeField] private Transform holder;
         private GameCharacterActor actor;
 
+        private GrenadeActor currentGrenade;
+        
         private void Awake()
         {
             actor = GetComponent<GameCharacterActor>();
@@ -25,9 +28,20 @@ namespace DefaultNamespace.Tools
             actor.Inventory.UpdateEvent -= UpdateView;
         }
         
-        public void UpdateView()
+        private void UpdateView()
         {
-            
+            if (currentGrenade)
+            {
+                GameManager.ObjectSpawner.Destroy(currentGrenade);
+            }
+
+            if (!actor.Inventory.HasGrenade)
+            {
+                currentGrenade = null;
+                return;
+            }
+            var grenadeConfig = actor.Inventory.CurrentGrenadeType;
+            currentGrenade = GameManager.ObjectSpawner.Spawn(grenadeConfig.prefab, Vector3.zero, Quaternion.identity, holder);
         }
     }
 }

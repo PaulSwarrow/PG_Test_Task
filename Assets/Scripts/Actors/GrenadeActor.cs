@@ -1,11 +1,13 @@
 ﻿using System;
+using DefaultNamespace.Interfaces;
 using UnityEngine;
 
 namespace DefaultNamespace
 {
-    public class GrenadeActor : MonoBehaviour
+    public class GrenadeActor : MonoBehaviour, IPoolable
     {
         public Vector3 velocity;
+        public bool Thrown;
 
         public Vector3 position
         {
@@ -15,6 +17,7 @@ namespace DefaultNamespace
 
         private void FixedUpdate()
         {
+            if(!Thrown) return;
             velocity += Vector3.down * (GameManager.GameProperties.gravity * Time.fixedTime);
             var step = velocity * Time.fixedTime;
             if (Physics.Raycast(new Ray(position, step), out var hit))
@@ -30,6 +33,12 @@ namespace DefaultNamespace
         {
             //spawn particles;
             Destroy(gameObject);
+        }
+
+        public void Reset()
+        {
+            Thrown = false;
+            velocity = Vector3.zero;
         }
     }
 }

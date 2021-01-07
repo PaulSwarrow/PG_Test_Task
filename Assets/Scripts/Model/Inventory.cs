@@ -34,7 +34,7 @@ namespace DefaultNamespace.Data
 
         public void AddGrenade(GrenadeConfig type)
         {
-            if (Grenades.TryFind(slot => slot.type == type, out var slot))
+            if (Grenades.TryFind(item => item.type == type, out var slot))
             {
                 slot.amount++;
             }
@@ -58,5 +58,6 @@ namespace DefaultNamespace.Data
         }
 
         public GrenadeConfig CurrentGrenadeType => Grenades.Count > 0 ? Grenades[grenadeType].type : null;
+        public bool HasGrenade => Grenades.Count > 0;
     }
 }

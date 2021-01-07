@@ -22,12 +22,16 @@
           </e>
           <e p="GameManager.cs" t="Include" />
           <e p="IGameSystem.cs" t="Include" />
+          <e p="Interfaces" t="Include">
+            <e p="IPoolable.cs" t="Include" />
+          </e>
           <e p="Model" t="Include">
             <e p="GameCharacter.cs" t="Include" />
             <e p="Inventory.cs" t="Include" />
           </e>
           <e p="Systems" t="Include">
             <e p="GameCharacterSystem.cs" t="Include" />
+            <e p="ObjectSpawner.cs" t="Include" />
             <e p="PlayerController.cs" t="Include" />
             <e p="Tools" t="Include">
               <e p="AimDrawer.cs" t="Include" />

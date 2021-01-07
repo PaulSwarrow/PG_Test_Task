@@ -10,8 +10,7 @@ namespace DefaultNamespace.Systems.Tools
         
         public AimDrawer(LineRenderer trajectoryRenderer)
         {
-            
-            
+            this.trajectoryRenderer = trajectoryRenderer;
         }
         
         public bool Enable
