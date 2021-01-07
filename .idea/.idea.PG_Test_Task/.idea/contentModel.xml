@@ -20,6 +20,9 @@
           <e p="Systems" t="Include">
             <e p="GameCharacterSystem.cs" t="Include" />
             <e p="PlayerController.cs" t="Include" />
+            <e p="Tools" t="Include">
+              <e p="AimDrawer.cs" t="Include" />
+            </e>
           </e>
           <e p="Tools" t="Include">
             <e p="Ballistics.cs" t="Include" />

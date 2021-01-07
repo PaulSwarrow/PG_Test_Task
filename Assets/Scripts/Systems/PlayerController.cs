@@ -1,4 +1,5 @@
 ﻿using DefaultNamespace.Data;
+using DefaultNamespace.Systems.Tools;
 using Tools;
 using UnityEditor;
 using UnityEngine;
@@ -9,16 +10,13 @@ namespace DefaultNamespace.Systems
     {
         private GameCharacter character;
         private Camera camera;
-        private LineRenderer trajectoryRenderer;
+        private AimDrawer aimDrawer;
         public GameCharacter Target => character;
 
-        private bool isAiming = false;
-        private Vector3 aimPoint;
-
-        public void Init(GameManager.Properties properties)
+        public void Init()
         {
             camera = Camera.main;
-            this.trajectoryRenderer = properties.trajectoryRenderer;
+            aimDrawer = new AimDrawer(GameManager.GameProperties.trajectoryRenderer);
         }
 
         public void Start()
@@ -39,40 +37,32 @@ namespace DefaultNamespace.Systems
             var aim = Input.GetButton("Fire2");
             if (aim)
             {
-                isAiming = true;
+                character.Aiming = true;
 
                 character.Move = Vector3.zero;
 
                 var layerMask = LayerMask.GetMask("Floor");
-                if (InputTools.MouseToFloorPoint(Camera.main, 20, layerMask, out aimPoint))
+                if (InputTools.MouseToFloorPoint(Camera.main, 20, layerMask, out character.AimPoint))
                 {
-                    trajectoryRenderer.gameObject.SetActive(true);
+                    aimDrawer.Enable = true;
                     var p1 = character.position;
-                    Ballistics.GetInitVelocity(p1, aimPoint, 9.8f, out var initialVector, out var time);
-
-                    for (var i = 1; i <= trajectoryRenderer.positionCount; i++)
-                    {
-                        trajectoryRenderer.SetPosition(i - 1,
-                            Ballistics.GetPosition(p1, initialVector, 9.8f,
-                                i * time / trajectoryRenderer.positionCount));
-                    }
-
-                    var direction = aimPoint - p1;
+                    aimDrawer.Draw(p1, character.AimPoint);
+                    var direction = character.AimPoint - p1;
                     direction.y = 0;
                     character.Direction = direction;
                 }
                 else
                 {
-                    trajectoryRenderer.gameObject.SetActive(false);
+                    aimDrawer.Enable = false;
                 }
             }
             else
             {
-                if (isAiming)
+                if (character.Aiming)
                 {
-                    trajectoryRenderer.gameObject.SetActive(false);
-                    isAiming = false;
-                    character.ThrowCurrentItem(aimPoint);
+                    aimDrawer.Enable = false;
+                    character.Aiming = false;
+                    character.ThrowCurrentItem();
                 }
 
                 var moveVector = new Vector3(
@@ -91,8 +81,8 @@ namespace DefaultNamespace.Systems
 
         private void DrawGizmos()
         {
-            if (isAiming)
-                Gizmos.DrawWireSphere(aimPoint, 1);
+            if (character.Aiming)
+                Gizmos.DrawWireSphere(character.AimPoint, 1);
         }
     }
 }

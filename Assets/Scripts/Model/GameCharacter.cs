@@ -20,6 +20,8 @@ namespace DefaultNamespace.Data
         
         public Vector3 position => actor.transform.position;
 
+        public bool Aiming;
+        public Vector3 AimPoint;
         public Vector3 Move
         {
             get => actor.Move;
@@ -33,7 +35,7 @@ namespace DefaultNamespace.Data
         }
 
 
-        public void ThrowCurrentItem(Vector3 targetPosition)
+        public void ThrowCurrentItem()
         {
             
         }

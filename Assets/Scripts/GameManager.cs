@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     {
         public GameCharacterActor characterActorPrefab;
         public LineRenderer trajectoryRenderer;
+        public float gravity = 9.8f;
     }
 
     [SerializeField] private Properties properties;
@@ -22,20 +23,23 @@ public class GameManager : MonoBehaviour
     public static event Action GizmosEvent;
     public static PlayerController PlayerController { get; private set; }
     public static GameCharacterSystem GameCharacter { get; private set; }
+    public static Properties GameProperties { get; private set; }
+
     // Start is called before the first frame update
     void Awake()
     {
+        GameProperties = properties;
         PlayerController = InitSystem<PlayerController>();
         GameCharacter = InitSystem<GameCharacterSystem>();
-        
-        
-        systems.ForEach(system=> system.Init(properties));
-        systems.ForEach(system=> system.Start());
+
+
+        systems.ForEach(system => system.Init());
+        systems.ForEach(system => system.Start());
     }
 
     private void OnDestroy()
     {
-        systems.ForEach(system=>system.Destroy());
+        systems.ForEach(system => system.Destroy());
     }
 
     private T InitSystem<T>() where T : IGameSystem, new()

@@ -2,7 +2,7 @@
 {
     public interface IGameSystem
     {
-        void Init(GameManager.Properties properties);
+        void Init();
         void Start();
         void Destroy();
     }

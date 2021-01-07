@@ -11,9 +11,9 @@ namespace DefaultNamespace.Systems
         private List<GameCharacterActor> pool = new List<GameCharacterActor>();
         private HashSet<GameCharacter> list = new HashSet<GameCharacter>();
 
-        public void Init(GameManager.Properties properties)
+        public void Init()
         {
-            prefab = properties.characterActorPrefab;
+            prefab = GameManager.GameProperties.characterActorPrefab;
         }
 
         public void Start()
