@@ -4,5 +4,6 @@
     {
         void Init(GameManager.Properties properties);
         void Start();
+        void Destroy();
     }
 }

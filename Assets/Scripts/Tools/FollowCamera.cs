@@ -19,7 +19,7 @@ public class FollowCamera : MonoBehaviour
     {
         var cameraPosition = transform.position;
         var position = target.position;
-        var targetPosition = position + target.TransformDirection(offset);
+        var targetPosition = position + offset;
 
         transform.position = Vector3.Slerp(cameraPosition, targetPosition, moveSpeed * Time.fixedDeltaTime);
         

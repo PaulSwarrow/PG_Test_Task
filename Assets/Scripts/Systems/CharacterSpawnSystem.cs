@@ -19,6 +19,11 @@ namespace DefaultNamespace.Systems
             
         }
 
+        public void Destroy()
+        {
+            
+        }
+
         public GameCharacter Spawn(Vector3 position, Vector3 lookDirection)
         {
             var rotation = Quaternion.LookRotation(lookDirection, Vector3.up);
