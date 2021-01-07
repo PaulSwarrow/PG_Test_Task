@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
         public LineRenderer trajectoryRenderer;
         public float gravity = 9.8f;
         public List<GrenadeConfig> grenades;
+        public Bounds worldBounds;
     }
 
     [SerializeField] private Properties properties;
