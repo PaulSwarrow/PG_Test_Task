@@ -9,17 +9,15 @@ namespace DefaultNamespace.Data
         public event Action<GameCharacter> DestroyEvent;
         public Inventory Inventory;
         private GameCharacterActor actor;
-        private List<GameCharacterActor> pool;
 
-        public GameCharacter(GameCharacterActor actor, List<GameCharacterActor> pool)
+        public GameCharacter(GameCharacterActor prefab)
         {
             Inventory = new Inventory();
-            this.actor = actor;
-            actor.character = this;
-            this.pool = pool;
+            actor = GameManager.ObjectSpawner.Spawn(prefab, Vector3.zero, Quaternion.identity);
+            actor.Activate(this);
         }
-        
-        public Vector3 position => actor.transform.position;
+
+        public Vector3 Position => actor.transform.position;
 
         public bool Aiming;
         public Vector3 AimPoint;
@@ -29,17 +27,20 @@ namespace DefaultNamespace.Data
 
         public void ThrowCurrentItem()
         {
-            
         }
 
         public void Destroy()
         {
-            actor.gameObject.SetActive(false);
-            pool.Add(actor);
-            
+            GameManager.ObjectSpawner.Destroy(actor);
             Inventory = null;
             actor = null;
             DestroyEvent?.Invoke(this);
+        }
+
+        public void SetPosition(Vector3 position, Vector3 lookDirection)
+        {
+            actor.transform.position = position;
+            actor.transform.rotation = Quaternion.LookRotation(lookDirection, Vector3.up);
         }
     }
 }

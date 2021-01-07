@@ -26,7 +26,8 @@ namespace DefaultNamespace.Systems
 
         public GameCharacter Spawn(Vector3 position, Vector3 lookDirection)
         {
-            var character = new GameCharacter(CreateActor(position, lookDirection), pool);
+            var character = new GameCharacter(prefab);
+            character.SetPosition(position, lookDirection);
             character.DestroyEvent += OnCharacterDestroyed;
             list.Add(character);
             return character;

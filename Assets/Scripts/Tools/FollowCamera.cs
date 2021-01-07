@@ -19,7 +19,7 @@ public class FollowCamera : MonoBehaviour
     void LateUpdate()
     {
         var cameraPosition = transform.position;
-        var position = target.position;
+        var position = target.Position;
         var targetPosition = position + offset;
 
         transform.position = Vector3.Slerp(cameraPosition, targetPosition, moveSpeed * Time.fixedDeltaTime);

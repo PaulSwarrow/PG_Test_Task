@@ -1,12 +1,16 @@
 ﻿using System;
 using DefaultNamespace.Data;
+using DefaultNamespace.Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace DefaultNamespace
 {
-    public class GameCharacterActor : MonoBehaviour
+    public class GameCharacterActor : MonoBehaviour, IPoolable
     {
+        public event Action ActivatedEvent;
+        public event Action DeactivatedEvent;
+        
         private static readonly int MoveKey = Animator.StringToHash("Move");
         private static readonly int ThrowKey = Animator.StringToHash("Throw");
 
@@ -14,14 +18,26 @@ namespace DefaultNamespace
         [SerializeField] private float MoveSpeed = 3.5f;
         private NavMeshAgent agent;
 
-        public Inventory Inventory = new Inventory();
-        public GameCharacter character;
+        public GameCharacter character { get; private set; }
 
         public Transform transform { get; private set; }
+
         private void Awake()
         {
             transform = base.transform;
             agent = GetComponent<NavMeshAgent>();
+        }
+
+        public void Activate(GameCharacter character)
+        {
+            this.character = character;
+            ActivatedEvent?.Invoke();
+        }
+        
+        public void Reset()
+        {
+            character = null;
+            DeactivatedEvent?.Invoke();
         }
 
         private void Update()

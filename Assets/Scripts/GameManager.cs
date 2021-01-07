@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace;
+using DefaultNamespace.Configs;
 using DefaultNamespace.Systems;
 using UnityEditor;
 using UnityEngine;
@@ -14,6 +15,7 @@ public class GameManager : MonoBehaviour
         public GameCharacterActor characterActorPrefab;
         public LineRenderer trajectoryRenderer;
         public float gravity = 9.8f;
+        public List<GrenadeConfig> grenades;
     }
 
     [SerializeField] private Properties properties;

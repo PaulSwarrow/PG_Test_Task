@@ -24,12 +24,16 @@ namespace DefaultNamespace.Data
         {
             grenadeType++;
             if (grenadeType >= Grenades.Count) grenadeType = 0;
+            
+            UpdateEvent?.Invoke();
         }
 
         public void PrevGrenade()
         {
             grenadeType++;
             if (grenadeType >= Grenades.Count) grenadeType = 0;
+            
+            UpdateEvent?.Invoke();
         }
 
         public void AddGrenade(GrenadeConfig type)
@@ -46,6 +50,7 @@ namespace DefaultNamespace.Data
                     amount = 1
                 });
             }
+            UpdateEvent?.Invoke();
         }
 
         public void UseGrenade()

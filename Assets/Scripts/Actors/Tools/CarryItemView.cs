@@ -10,24 +10,31 @@ namespace DefaultNamespace.Tools
         private GameCharacterActor actor;
 
         private GrenadeActor currentGrenade;
-        
+
         private void Awake()
         {
             actor = GetComponent<GameCharacterActor>();
-        }
-
-        private void OnEnable()
-        {
-            actor.Inventory.UpdateEvent += UpdateView;
-            UpdateView();
-
-        }
-
-        private void OnDisable()
-        {
-            actor.Inventory.UpdateEvent -= UpdateView;
+            actor.ActivatedEvent += OnActorActivated;
+            actor.DeactivatedEvent += OnActorDeactivated;
         }
         
+        private void OnActorActivated()
+        {
+            actor.character.Inventory.UpdateEvent += UpdateView;
+            UpdateView();
+        }
+        
+        private void OnActorDeactivated()
+        {
+            actor.character.Inventory.UpdateEvent -= UpdateView;
+        }
+
+        private void OnDestroy()
+        {
+            actor.ActivatedEvent -= OnActorActivated;
+            actor.DeactivatedEvent -= OnActorDeactivated;
+        }
+
         private void UpdateView()
         {
             if (currentGrenade)
@@ -35,13 +42,15 @@ namespace DefaultNamespace.Tools
                 GameManager.ObjectSpawner.Destroy(currentGrenade);
             }
 
-            if (!actor.Inventory.HasGrenade)
+            if (!actor.character.Inventory.HasGrenade)
             {
                 currentGrenade = null;
                 return;
             }
-            var grenadeConfig = actor.Inventory.CurrentGrenadeType;
-            currentGrenade = GameManager.ObjectSpawner.Spawn(grenadeConfig.prefab, Vector3.zero, Quaternion.identity, holder);
+
+            var grenadeConfig = actor.character.Inventory.CurrentGrenadeType;
+            currentGrenade =
+                GameManager.ObjectSpawner.Spawn(grenadeConfig.prefab, holder.position, holder.rotation, holder);
         }
     }
 }

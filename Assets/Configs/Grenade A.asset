@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0849864e2bd476697365fc4bfac7f45, type: 3}
   m_Name: Grenade A
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
+  prefab: {fileID: 841357742327791137, guid: 5d6086d1d6c032a4685fbde35466fee7, type: 3}
   name: 
   radius: 1
   damage: 1

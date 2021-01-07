@@ -1,4 +1,5 @@
-﻿using DefaultNamespace.Data;
+﻿using System.Linq;
+using DefaultNamespace.Data;
 using DefaultNamespace.Systems.Tools;
 using Tools;
 using UnityEditor;
@@ -22,6 +23,7 @@ namespace DefaultNamespace.Systems
         public void Start()
         {
             character = GameManager.GameCharacter.Spawn(Vector3.zero, Vector3.forward);
+            character.Inventory.AddGrenade(GameManager.GameProperties.grenades.First());
             GameManager.UpdateEvent += OnUpdate;
             GameManager.GizmosEvent += DrawGizmos;
         }
@@ -45,7 +47,7 @@ namespace DefaultNamespace.Systems
                 if (InputTools.MouseToFloorPoint(Camera.main, 20, layerMask, out character.AimPoint))
                 {
                     aimDrawer.Enable = true;
-                    var p1 = character.position;
+                    var p1 = character.Position;
                     aimDrawer.Draw(p1, character.AimPoint);
                     var direction = character.AimPoint - p1;
                     direction.y = 0;
