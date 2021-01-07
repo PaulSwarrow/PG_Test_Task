@@ -15,6 +15,7 @@ namespace DefaultNamespace.Data
         {
             Inventory = new Inventory();
             this.actor = actor;
+            actor.character = this;
             this.pool = pool;
         }
         
@@ -22,17 +23,8 @@ namespace DefaultNamespace.Data
 
         public bool Aiming;
         public Vector3 AimPoint;
-        public Vector3 Move
-        {
-            get => actor.Move;
-            set => actor.Move = value;
-        }
-
-        public Vector3 Direction
-        {
-            get => actor.Direction;
-            set => actor.Direction = value;
-        }
+        public Vector3 Move;
+        public Vector3 Direction;
 
 
         public void ThrowCurrentItem()

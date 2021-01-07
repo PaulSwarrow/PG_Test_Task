@@ -15,8 +15,7 @@ namespace DefaultNamespace
         private NavMeshAgent agent;
 
         public Inventory Inventory = new Inventory();
-        public Vector3 Move { get; set; }
-        public Vector3 Direction { get; set; }
+        public GameCharacter character;
 
         public Transform transform { get; private set; }
         private void Awake()
@@ -27,12 +26,12 @@ namespace DefaultNamespace
 
         private void Update()
         {
-            var movement = Move * MoveSpeed;
+            var movement = character.Move * MoveSpeed;
             animator.SetFloat(MoveKey, movement.magnitude);
             agent.Move(movement * Time.deltaTime);
-            if (Direction.magnitude > 0)
+            if (character.Direction.magnitude > 0)
             {
-                transform.rotation = Quaternion.LookRotation(Direction, Vector3.up);
+                transform.rotation = Quaternion.LookRotation(character.Direction, Vector3.up);
             }
         }
     }
