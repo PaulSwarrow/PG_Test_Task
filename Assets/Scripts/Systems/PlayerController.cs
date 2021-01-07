@@ -1,4 +1,5 @@
-﻿using Tools;
+﻿using DefaultNamespace.Data;
+using Tools;
 using UnityEditor;
 using UnityEngine;
 
@@ -22,7 +23,7 @@ namespace DefaultNamespace.Systems
 
         public void Start()
         {
-            character = GameManager.CharacterSpawn.Spawn(Vector3.zero, Vector3.forward);
+            character = GameManager.GameCharacter.Spawn(Vector3.zero, Vector3.forward);
             GameManager.UpdateEvent += OnUpdate;
             GameManager.GizmosEvent += DrawGizmos;
         }
@@ -39,13 +40,14 @@ namespace DefaultNamespace.Systems
             if (aim)
             {
                 isAiming = true;
-                trajectoryRenderer.gameObject.SetActive(true);
 
+                character.Move = Vector3.zero;
 
                 var layerMask = LayerMask.GetMask("Floor");
                 if (InputTools.MouseToFloorPoint(Camera.main, 20, layerMask, out aimPoint))
                 {
-                    var p1 = character.transform.position;
+                    trajectoryRenderer.gameObject.SetActive(true);
+                    var p1 = character.position;
                     Ballistics.GetInitVelocity(p1, aimPoint, 9.8f, out var initialVector, out var time);
 
                     for (var i = 1; i <= trajectoryRenderer.positionCount; i++)
@@ -54,6 +56,14 @@ namespace DefaultNamespace.Systems
                             Ballistics.GetPosition(p1, initialVector, 9.8f,
                                 i * time / trajectoryRenderer.positionCount));
                     }
+
+                    var direction = aimPoint - p1;
+                    direction.y = 0;
+                    character.Direction = direction;
+                }
+                else
+                {
+                    trajectoryRenderer.gameObject.SetActive(false);
                 }
             }
             else
@@ -62,6 +72,7 @@ namespace DefaultNamespace.Systems
                 {
                     trajectoryRenderer.gameObject.SetActive(false);
                     isAiming = false;
+                    character.ThrowCurrentItem(aimPoint);
                 }
 
                 var moveVector = new Vector3(

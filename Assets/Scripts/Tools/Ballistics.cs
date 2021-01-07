@@ -19,11 +19,11 @@ namespace Tools
             var unitDirection = flatDelta.normalized;
 
             var maxYPos = Mathf.Max(flatDelta.magnitude / 2, from.y, to.y);
-            
+
             var h = maxYPos - from.y;
-            initialVelocity.y = 2 * Mathf.Sqrt( gravity * h);
+            initialVelocity.y = 2 * Mathf.Sqrt(gravity * h);
             var timeToMax = .5f * initialVelocity.y / gravity;
-            var timeToFall = Mathf.Sqrt( (maxYPos - to.y) / gravity);
+            var timeToFall = Mathf.Sqrt((maxYPos - to.y) / gravity);
             totalFlightTime = timeToMax + timeToFall;
             var horizontalVelocityMagnitude = range / totalFlightTime;
             initialVelocity.x = horizontalVelocityMagnitude * unitDirection.x;

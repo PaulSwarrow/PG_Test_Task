@@ -249,7 +249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   properties:
-    characterPrefab: {fileID: 3755797611126250306, guid: 01a038dff7f0659438ac814a33994058, type: 3}
+    characterActorPrefab: {fileID: 3755797611126250306, guid: 01a038dff7f0659438ac814a33994058, type: 3}
     trajectoryRenderer: {fileID: 724815800}
 --- !u!4 &414488088
 Transform:

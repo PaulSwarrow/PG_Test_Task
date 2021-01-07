@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     [Serializable]
     public class Properties
     {
-        public GameCharacter characterPrefab;
+        public GameCharacterActor characterActorPrefab;
         public LineRenderer trajectoryRenderer;
     }
 
@@ -21,12 +21,12 @@ public class GameManager : MonoBehaviour
     public static event Action UpdateEvent;
     public static event Action GizmosEvent;
     public static PlayerController PlayerController { get; private set; }
-    public static CharacterSpawnSystem CharacterSpawn { get; private set; }
+    public static GameCharacterSystem GameCharacter { get; private set; }
     // Start is called before the first frame update
     void Awake()
     {
         PlayerController = InitSystem<PlayerController>();
-        CharacterSpawn = InitSystem<CharacterSpawnSystem>();
+        GameCharacter = InitSystem<GameCharacterSystem>();
         
         
         systems.ForEach(system=> system.Init(properties));

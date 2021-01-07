@@ -9,13 +9,16 @@
         <e p="Scripts" t="Include">
           <e p="Data" t="Include">
             <e p="GrenadeType.cs" t="Include" />
-            <e p="Inventory.cs" t="Include" />
           </e>
-          <e p="GameCharacter.cs" t="Include" />
+          <e p="GameCharacterActor.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
           <e p="IGameSystem.cs" t="Include" />
+          <e p="Model" t="Include">
+            <e p="GameCharacter.cs" t="Include" />
+            <e p="Inventory.cs" t="Include" />
+          </e>
           <e p="Systems" t="Include">
-            <e p="CharacterSpawnSystem.cs" t="Include" />
+            <e p="GameCharacterSystem.cs" t="Include" />
             <e p="PlayerController.cs" t="Include" />
           </e>
           <e p="Tools" t="Include">

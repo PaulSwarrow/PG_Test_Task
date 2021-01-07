@@ -1,10 +1,11 @@
 ﻿using System;
+using DefaultNamespace.Data;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace DefaultNamespace
 {
-    public class GameCharacter : MonoBehaviour
+    public class GameCharacterActor : MonoBehaviour
     {
         private static readonly int MoveKey = Animator.StringToHash("Move");
         private static readonly int ThrowKey = Animator.StringToHash("Throw");
@@ -13,11 +14,14 @@ namespace DefaultNamespace
         [SerializeField] private float MoveSpeed = 3.5f;
         private NavMeshAgent agent;
 
+        public Inventory Inventory = new Inventory();
         public Vector3 Move { get; set; }
         public Vector3 Direction { get; set; }
 
+        public Transform transform { get; private set; }
         private void Awake()
         {
+            transform = base.transform;
             agent = GetComponent<NavMeshAgent>();
         }
 
@@ -30,10 +34,6 @@ namespace DefaultNamespace
             {
                 transform.rotation = Quaternion.LookRotation(Direction, Vector3.up);
             }
-        }
-
-        public void Throw()
-        {
         }
     }
 }

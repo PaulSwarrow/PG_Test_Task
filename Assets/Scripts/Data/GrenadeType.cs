@@ -1,7 +1,9 @@
 ﻿namespace DefaultNamespace.Data
 {
-    public enum ItemType
+    public enum GrenadeType
     {
-        
+        A,
+        B,
+        C
     }
 }
